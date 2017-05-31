@@ -1,0 +1,57 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Query{% endblock %}
+
+{% block navbar %}
+<!-- <div class="navbar navbar-fixed-top">
+</div> -->
+{% endblock %}
+
+{% block content %}
+<form class="form" role="form" method="POST">
+<div>
+	<h2 style="color: #666;">查询</h2>
+	{{ form.hidden_tag() }}
+	<label  class="form.label">number</label>
+	<input  class="form-control"  type="text" name="number" value="" placeholder="请输入number">
+	<br>
+	
+	<input  class="form-control"  type="text" name="starttime" value="" placeholder="请输入starttime">--<input  class="form-control"  type="text" name="stoptime" value="" placeholder="请输入stoptime">
+	<br>
+
+	<input  class="form-control"  type="text" name="startnumber" value="" placeholder="请输入startnumber">--<input  class="form-control"  type="text" name="stoptnumber" value="" placeholder="请输入stopnumber">
+	<br>
+
+	<label  class="form.label">testTool</label>
+	<input  class="form-control"  type="text" name="testTool"value=""placeholder="请输入testTool">
+	<button type="form.submit" class="btn btn-success" >Query</button>
+</div>
+</form>
+
+<div>
+{% for module in modules %}
+<p>type:{{module.type}}</p>
+<p>number:{{module.number}}</p>
+<p>maxPress:{{module.maxPress}}</p>
+<p>minPress:{{module.minPress}}</p>
+<p>press:{{module.press}}</p>
+<p>maxPressPosition:{{module.maxPressPosition}}</p>
+<p>minPressPosition:{{module.minPressPosition}}</p>
+<p>pressPosition:{{module.pressPosition}}</p>
+<p>minPressPower:{{module.minPressPower}}</p>
+<p>pressPower:{{module.pressPower}}</p>
+<p>maxBack:{{module.maxBack}}</p>
+<p>minBcak:{{module.minBcak}}</p>
+<p>back:{{module.back}}</p>
+<p>maxBackPosition:{{module.maxBackPosition}}</p>
+<p>minBackPosition:{{module.minBackPosition}}</p>
+<p>backPosition:{{module.backPosition}}</p>
+<p>minBackPower:{{module.minBackPower}}</p>
+<p>backPower:{{module.backPower}}</p>
+<p>testTime:{{module.testTime}}</p>
+<p>tester:{{module.tester}}</p>
+<p>testTool:{{module.testTool}}</p>
+<br>
+{% endfor %}
+{% include 'flash.html' %}
+{% endblock %}
+</div>

@@ -1,0 +1,31 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Admin{% endblock %}
+
+{% block navbar %}
+<!-- <div class="navbar navbar-fixed-top">
+</div> -->
+{% endblock %}
+
+{% block content %}
+<form class="form" role="form" method="POST">
+<div>
+	<h2 style="color: #666;">Admin</h2>
+	{{ form.hidden_tag() }}
+	<label  class="form.label">用户名</label>
+	<input  class="form-control"  type="text" name="username" value="" placeholder="请输入你的用户名">  
+	<br>
+	<label  class="form.label">密码</label>  
+	<input  class="form-control"  type="text" name="password" value="" placeholder="请输入你的密码">
+	<label  class="form.label">确认密码</label>  
+	<input  class="form-control"  type="text" name="reppassword" value="" placeholder="重复你的密码">
+	<br>
+	<button type="form.submit" class="btn btn-success" >添加新用户</button>
+</div>
+</form>
+{% include 'flash.html' %}
+<br>
+<h3>用户:</h3>
+{% for user in users %}
+<p><i>用户名:{{user.username}}</i></p>
+{% endfor %}
+{% endblock %}
