@@ -1,6 +1,6 @@
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
-SQLALCHEMY_DATABASE_URI = 'mysql://root:1234pttk@127.0.0.1:3306/test?charset=utf8'
+SQLALCHEMY_DATABASE_URI = 'mysql://root:1234pttK@127.0.0.1:3306/test?charset=utf8'
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
 
