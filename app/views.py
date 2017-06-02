@@ -1,37 +1,29 @@
 # -*- coding: utf-8 -*-
 from flask import render_template, flash, redirect, session, url_for, request, g
 from flask_login import login_user, logout_user, current_user, login_required
-from app import app, db, lm, oid,models
+from app import app, db, lm, oid,models,admin
+from flask.ext.admin.contrib.sqla import ModelView
 from models import User, Modules
 from forms import LoginForm, AdminForm,QueryForm
 import datetime
 import time 
 import json
+from sqlalchemy import and_,or_
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-
-
 #web
+admin.add_view(ModelView(User, db.session))
+admin.add_view(ModelView(Modules, db.session))
+
+
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/login', methods=['POST','GET'])
 @oid.loginhandler
 def login():
     form=LoginForm()
     if form.validate_on_submit():
-        if form.username.data=='admin' and form.password.data=='1234pttk':
-            user=User.query.filter_by(username='admin',password='1234pttk').first()
-            if user:
-                login_user(user, form.remember_me.data)
-                return redirect(url_for('admin'))
-            else:
-                 user=User(username='admin',password='1234pttk')
-                 db.session.add(user)
-                 db.session.commit()
-                 login_user(user, form.remember_me.data)
-                 return redirect(url_for('admin'))
-
         user = User.query.filter_by(username=form.username.data).first()
         if user is not None and user.password==form.password.data:
             login_user(user, form.remember_me.data)
@@ -43,33 +35,68 @@ def login():
 @app.route('/admin', methods=['POST','GET'])
 @login_required
 def admin():
-    form=AdminForm()
-    if form.validate_on_submit():
-        if form.password.data==form.reppassword.data:
-            user=User.query.filter_by(username=form.username.data).first()
-            if user:
-                flash(u'用户名已被占用')
-                return redirect(url_for('admin'))
-            else:
-                user=User(username=form.username.data,password=form.password.data)
-                db.session.add(user)
-                db.session.commit()
-                flash(u'添加成功')
-                return redirect(url_for('admin'))
-        else:
-            flash(u'二次输入密码不同')
-            return redirect(url_for('admin'))
-    users=User.query.all()[1:]
-    return render_template('admin.html',form=form,users=users)
+#     form=AdminForm()
+#     if form.validate_on_submit():
+#         if form.password.data==form.reppassword.data:
+#             user=User.query.filter_by(username=form.username.data).first()
+#             if user:
+#                 flash(u'用户名已被占用')
+#                 return redirect(url_for('admin'))
+#             else:
+#                 user=User(username=form.username.data,password=form.password.data)
+#                 db.session.add(user)
+#                 db.session.commit()
+#                 flash(u'添加成功')
+#                 return redirect(url_for('admin'))
+#         else:
+#             flash(u'二次输入密码不同')
+#             return redirect(url_for('admin'))
+#     users=User.query.all()[1:]
+      return render_template('admin.html',form=form,users=users)
 
 
 @app.route('/query', methods=['POST','GET'])
 @login_required
 def query():
     form=QueryForm()
-    if form.validate_on_submit():
-        pass
-    modules=Modules.query.filter_by(number=form.number.data).all()
+    if form.number.data:
+        if form.testTool.data:
+            if form.starttime.data and form.stoptime.data:
+                modules1=Modules.query.filter_by(number=form.number.data,testTool = form.testTool.data).all()
+                modules2=Modules.query.filter(Modules.testTime>=form.starttime.data,Modules.testTime<form.stoptime.data).all()
+                modules=list(set(modules1).intersection(set(modules2)))
+                return render_template('query.html',form=form,modules=modules)
+            else:
+                modules=Modules.query.filter_by(number=form.number.data,testTool = form.testTool.data).all()
+                return render_template('query.html',form=form,modules=modules)
+        else:
+            if form.starttime.data and form.stoptime.data:
+                modules1=Modules.query.filter_by(number=form.number.data).all()
+                modules2=Modules.query.filter(Modules.testTime>=form.starttime.data,Modules.testTime<form.stoptime.data).all()
+                modules=list(set(modules1).intersection(set(modules2)))
+            else:
+                modules=Modules.query.filter_by(number=form.number.data).all()
+                return render_template('query.html',form=form,modules=modules)
+
+
+    else:
+        if form.testTool.data:
+            if form.starttime.data and form.stoptime.data:
+                modules1=Modules.query.filter_by(testTool = form.testTool.data).all()
+                modules2=Modules.query.filter(Modules.testTime>=form.starttime.data,Modules.testTime<form.stoptime.data).all()
+                modules=list(set(modules1).intersection(set(modules2)))
+                return render_template('query.html',form=form,modules=modules)
+            else:
+                modules=Modules.query.filter_by(testTool = form.testTool.data).all()
+                return render_template('query.html',form=form,modules=modules) 
+        else:
+            if form.starttime.data and form.stoptime.data:
+                modules=Modules.query.filter(Modules.testTime>=form.starttime.data,Modules.testTime<form.stoptime.data).all()
+                return render_template('query.html',form=form,modules=modules)
+            else:
+                modules=""
+                return render_template('query.html',form=form,modules=modules)
+    modules=""
     return render_template('query.html',form=form,modules=modules)
 
 
@@ -108,7 +135,8 @@ def upload():
     backPosition=request.json['backPosition']
     minBackPower=request.json['minBackPower']
     backPower=request.json['backPower']
-    testTime=request.json['testTime']
+    testTime=datetime.datetime.now()
+    #testTime=request.json['testTime']
     tester=request.json['tester']
     testTool=request.json['testTool']
 

@@ -1,7 +1,7 @@
  # -*- coding: utf-8 -*-
 
 from flask_wtf import Form
-from wtforms import StringField, BooleanField,PasswordField,SubmitField,ValidationError
+from wtforms import StringField, BooleanField,PasswordField,SubmitField,ValidationError,DateTimeField
 from wtforms.validators import DataRequired,Regexp,EqualTo
 from .models import User
 
@@ -19,10 +19,10 @@ class AdminForm(Form):
 
 class QueryForm(Form):
 	number=StringField()
-	starttime=StringField()
-	stoptime=StringField()
-	startnumber=StringField()
-	stopnumber=StringField()
+	starttime=DateTimeField()
+	stoptime=DateTimeField()
+	# startnumber=StringField()
+	# stopnumber=StringField()
 	testTool=StringField()
-	submit = SubmitField(u'Query')
+	submit = SubmitField()
 	
