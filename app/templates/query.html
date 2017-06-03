@@ -3,47 +3,36 @@
 
 <form class="form" role="form" method="POST">
 <div class="col-center-block " >
-	<h2 class="text-center">查询</h2>
-	{{ form.hidden_tag() }}
-	<!-- <label  class="form.label">工单号</label> -->
-	<div class="row">
-		<div class="col-lg-4">
-			<input  class="form-control"  type="text" name="number" value="" placeholder="请输入工单号进行查询">
-		</div>
-		<div class="col-lg-4">
-			<div class="row">
-				<div class="col-lg-5">
-					<input  class="form-control"  type="text" name="starttime" value="" placeholder="开始时间">
-				</div>
-				<div class="col-lg-2"><p class="text-center">至</p></div>
-				<div class="col-lg-5">
-					<input  class="form-control"  type="text" name="stoptime" value="" placeholder="结束时间">	
-				</div>
-			</div>
-			<br>
-            <button type="form.submit" class="btn btn-lg btn-primary btn-block" >查询</button> 
-			<!-- <input  class="form-control"  type="text" name="starttime" value="" placeholder="开始时间"><input  class="form-control"  type="text" name="stoptime" value="" placeholder="结束时间">	 -->
-		</div>
-		<div class="col-lg-4">
-			<input  class="form-control"  type="text" name="testTool"value=""placeholder="请输入使用工具进行查询">
-		</div>
-	</div>
-	<!-- <input  class="form-control"  type="text" name="number" value="" placeholder="请输入工单号进行查询">
+<h2 class="text-center">发电模块数据查询</h2>
+{{ form.hidden_tag() }}
+<div class="row"> 
+<div class="col-lg-2">              
+
+	<!-- <input size="16" type="text" value="2012-06-15 14:45" readonly> <br>
+	<script type="text/javascript">  $(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii'});</script><br> -->
+
+
+	<label  class="form.label">工单号</label>
+	<input  class="form-control"  type="text" name="number" value="" placeholder="请输入工单号进行查询">
+
+
 	<br>
 	<label  class="form.label">时间段</label>
-	<input  class="form-control"  type="text" name="starttime" value="" placeholder="开始时间"><input  class="form-control"  type="text" name="stoptime" value="" placeholder="结束时间">
+	<input  class="form-control"  type="text" name="starttime" value="" placeholder="开始时间">
 	<br>
-	<label  class="form.label">工单号段</label>
-	<input  class="form-control"  type="text" name="startnumber" value="" placeholder="请输入起始工单号"><input  class="form-control"  type="text" name="stoptnumber" value="" placeholder="请输入末尾工单号">
+	<input  class="form-control"  type="text" name="stoptime" value="" placeholder="结束时间">
 	<br>
-	
 	<label  class="form.label">工具</label>
-	<input  class="form-control"  type="text" name="testTool"value=""placeholder="请输入使用工具进行查询">-->
-	<!-- <button type="form.submit" class="btn btn-lg btn-primary btn-block" >查询</button>  -->
+	<input  class="form-control"  type="text" name="testTool"value=""placeholder="请输入使用工具进行查询">
+	<br>
+	<div class="col-center-block ">
+		<button type="form.submit" class="btn btn-primary " >查询</button>
+	</div>
 </div>
-</form>
+<div class="col-lg-10">
 {% if modules %}
-<table class="table table-bordered">
+<button class="btn btn-primary" onClick ="$('#tab1').tableExport({type:'excel', separator:';', escape:'false'});" id="buttonExportData" class="ui-btn ui-btn-inline ui-mini ui-shadow ui-corner-all">导出 Excel</button>
+<table class="table table-bordered" id="tab1">
  <thead>
     <tr>
       <th>type</th>
@@ -98,30 +87,10 @@
   </tbody>
 </table>
 {% endif%}
-<!-- {% for module in modules %}
-<p>type:{{module.type}}</p>
-<p>number:{{module.number}}</p>
-<p>maxPress:{{module.maxPress}}</p>
-<p>minPress:{{module.minPress}}</p>
-<p>press:{{module.press}}</p>
-<p>maxPressPosition:{{module.maxPressPosition}}</p>
-<p>minPressPosition:{{module.minPressPosition}}</p>
-<p>pressPosition:{{module.pressPosition}}</p>
-<p>minPressPower:{{module.minPressPower}}</p>
-<p>pressPower:{{module.pressPower}}</p>
-<p>maxBack:{{module.maxBack}}</p>
-<p>minBcak:{{module.minBcak}}</p>
-<p>back:{{module.back}}</p>
-<p>maxBackPosition:{{module.maxBackPosition}}</p>
-<p>minBackPosition:{{module.minBackPosition}}</p>
-<p>backPosition:{{module.backPosition}}</p>
-<p>minBackPower:{{module.minBackPower}}</p>
-<p>backPower:{{module.backPower}}</p>
-<p>testTime:{{module.testTime}}</p>
-<p>tester:{{module.tester}}</p>
-<p>testTool:{{module.testTool}}</p>
-<br>
-{% endfor %} -->
+</div>
+</div>
+</div>
+</form>
 {% include 'flash.html' %}
 {% endblock %}
 

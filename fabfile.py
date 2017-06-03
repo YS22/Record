@@ -4,7 +4,7 @@ env.user = 'root'
 env.password ='1234pttK'
 
 def deploy ():
-	with cd('/srv/record'):
+	with cd('/srv/Record'):
 		run('git pull')
 		run('supervisorctl restart record')
-		run('/supervisorctl status')
+		run('supervisorctl status')

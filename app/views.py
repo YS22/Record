@@ -135,8 +135,8 @@ def upload():
     backPosition=request.json['backPosition']
     minBackPower=request.json['minBackPower']
     backPower=request.json['backPower']
-    testTime=datetime.datetime.now()
-    #testTime=request.json['testTime']
+    # testTime=datetime.datetime.now()
+    testTime=request.json['testTime']
     tester=request.json['tester']
     testTool=request.json['testTool']
 
