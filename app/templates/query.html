@@ -6,22 +6,18 @@
 <h2 class="text-center">发电模块数据查询</h2>
 {{ form.hidden_tag() }}
 <div class="row"> 
-<div class="col-lg-2">              
-
-	<!-- <input size="16" type="text" value="2012-06-15 14:45" readonly> <br>
-	<script type="text/javascript">  $(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii'});</script><br> -->
-
+<div class="col-lg-2">   
 
 	<label  class="form.label">工单号</label>
 	<input  class="form-control"  type="text" name="number" value="" placeholder="请输入工单号进行查询">
 
-
 	<br>
 	<label  class="form.label">时间段</label>
-	<input  class="form-control"  type="text" name="starttime" value="" placeholder="开始时间">
+	<input  class="form-control" name="starttime" type="text" value="" id="datetimepicker" placeholder="开始时间">
 	<br>
-	<input  class="form-control"  type="text" name="stoptime" value="" placeholder="结束时间">
+	<input  class="form-control" name="stoptime" type="text" value="" id="datetimepicker1" placeholder="结束时间">
 	<br>
+
 	<label  class="form.label">工具</label>
 	<input  class="form-control"  type="text" name="testTool"value=""placeholder="请输入使用工具进行查询">
 	<br>
