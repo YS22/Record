@@ -7,13 +7,8 @@ from flask_login import LoginManager
 from flask_openid import OpenID
 from config import basedir
 from flask.ext.admin import Admin
+
 # from flask.ext.admin.contrib.sqla import ModelView
-
-
-# class MyView(BaseView):
-#     @expose('/')
-#     def index(self):
-#         return self.render('index.html')
 
 app=Flask(__name__)
 bootstrap = Bootstrap(app)

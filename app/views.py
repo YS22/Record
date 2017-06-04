@@ -3,6 +3,7 @@ from flask import render_template, flash, redirect, session, url_for, request, g
 from flask_login import login_user, logout_user, current_user, login_required
 from app import app, db, lm, oid,models,admin
 from flask.ext.admin.contrib.sqla import ModelView
+from flask_admin import BaseView,expose
 from models import User, Modules
 from forms import LoginForm, AdminForm,QueryForm
 import datetime
@@ -16,6 +17,21 @@ sys.setdefaultencoding('utf-8')
 #web
 admin.add_view(ModelView(User, db.session))
 admin.add_view(ModelView(Modules, db.session))
+
+class Query(BaseView):
+    @expose('/', methods=['GET', 'POST'])
+    def index(self):
+        # form = QueryForm()
+        return redirect(url_for('query'))
+
+class Logout(BaseView):
+    @expose('/', methods=['GET', 'POST'])
+    def index(self):
+        # form = QueryForm()
+        return redirect(url_for('logout'))
+
+admin.add_view(Query(name=u'返回查询页'))
+admin.add_view(Logout(name=u'退出登陆'))
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -35,7 +51,7 @@ def login():
 @app.route('/admin', methods=['POST','GET'])
 @login_required
 def admin():
-      return ""
+    return ""
 
 
 @app.route('/query', methods=['POST','GET'])
