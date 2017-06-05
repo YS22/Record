@@ -10,14 +10,13 @@
                 <li ><a href="{{ url_for('admin') }}" ><span class="glyphicon glyphicon-user"></span> 管理员</a></li>
                 {% endif %}
                 {% if g.user.is_authenticated() %}
-                <li ><a href="{{ url_for('query') }}" > <span class=" glyphicon glyphicon-search"></span> 查询数据</a></li>
                 <li ><a href="{{ url_for('logout') }}" > <span class="glyphicon glyphicon-off"></span> 退出登录</a></li> 
                 {% endif %} 
         </div>
        </ul>
 </nav> 
 
-<div class="container-fiuld">
+<div class="container-fiuld" style=margin-bottom:60px;>
 	<form class="form" role="form" method="POST">
 <div class="col-center-block " >
 <h2 class="text-center">发电模块数据查询</h2>
