@@ -18,19 +18,18 @@ sys.setdefaultencoding('utf-8')
 admin.add_view(ModelView(User, db.session))
 admin.add_view(ModelView(Modules, db.session))
 
-class Query(BaseView):
-    @expose('/', methods=['GET', 'POST'])
-    def index(self):
-        # form = QueryForm()
-        return redirect(url_for('query'))
+# class Query(BaseView):
+#     @expose('/', methods=['GET'])
+#     def index(self):
+#         # form = QueryForm()
+#         return redirect(url_for('query'))
 
 class Logout(BaseView):
-    @expose('/', methods=['GET', 'POST'])
+    @expose('/', methods=['GET'])
     def index(self):
-        # form = QueryForm()
         return redirect(url_for('logout'))
 
-admin.add_view(Query(name=u'返回查询页'))
+# admin.add_view(Query(name=u'返回查询页'))
 admin.add_view(Logout(name=u'退出登陆'))
 
 
@@ -43,7 +42,10 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user is not None and user.password==form.password.data:
             login_user(user, form.remember_me.data)
-            return redirect(url_for('query'))  
+            if user.username=="admin":
+                return redirect(url_for('admin'))
+            else:
+                return redirect(url_for('query'))  
         flash(u'密码或用户名错误!')
     return render_template('login.html', form=form)
 

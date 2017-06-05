@@ -9,9 +9,10 @@
 
     <!-- Bootstrap -->
     <link href="static/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="static/css/style.css">
+    <!-- <link rel="stylesheet" href="static/css/style.css"> -->
     
     <link rel="stylesheet" type="text/css" href="static/css/jquery.datetimepicker.css">
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -25,12 +26,23 @@
     margin-left: auto;  
     margin-right: auto;   
 }  
+
+.footer{
+    background-color:#666;
+    border-top:1px solid #ccc;
+    padding: 3px;
+    text-align:center;
+    color: #eee;
+    height: 60px; 
+    position: fixed; bottom: 0px;left:0px;right: 0px;
+}
+
 </style>  
   </head>
   <body>
-    {% block navbar %}
+    <!-- {% block navbar %}
     <nav  class="nav nav-tabs">
-   <!--  <ul class="nav nav-tabs"> -->
+       <ul class="nav nav-tabs">
         <h3 class="navbar-text"><i>领普科技</i></h3>
         <div class="collapse navbar-collapse ">
             <ul class="nav navbar-nav navbar-right">
@@ -44,7 +56,7 @@
             </ul>
         </div>
     </nav>
-    {% endblock %}
+    {% endblock %}-->
 
     {%block content %}
     {%endblock%}
@@ -52,19 +64,21 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <footer id="footer">
+    <footer class="footer">
   <div class="container ">
     <p>2017-6-2</p>
   </div>
-</footer>  
+</footer>
+
 </body>
-<script src="static/js/jquery.js"></script>
 <script src="static/js/jquery.datetimepicker.full.js"></script>
 <script>
    $('#datetimepicker').datetimepicker({format: 'Y-m-d h:i:s'});
    $('#datetimepicker1').datetimepicker({format: 'Y-m-d h:i:s'});
 </script>
-<script src="static/js/bootstrap.min.js"></script>
+<script src="static/js/bootstrap.min.js"></script> 
+<script src="static/js/jquery.js"></script>
 <script src="static/js/tableExport.js"></script>  
 <script src="static/js/jquery.base64.js"></script>
+
 </html>

@@ -1,11 +1,28 @@
 {% extends "base.html" %}
 {% block content %}
 
-<form class="form" role="form" method="POST">
+ <nav  class="nav nav-tabs">
+       <ul class="nav nav-tabs">
+        <h3 class="navbar-text"><i>领普科技</i></h3>
+        <div class="collapse navbar-collapse ">
+            <ul class="nav navbar-nav navbar-right">
+                {% if g.user.username=='admin' %}
+                <li ><a href="{{ url_for('admin') }}" ><span class="glyphicon glyphicon-user"></span> 管理员</a></li>
+                {% endif %}
+                {% if g.user.is_authenticated() %}
+                <li ><a href="{{ url_for('query') }}" > <span class=" glyphicon glyphicon-search"></span> 查询数据</a></li>
+                <li ><a href="{{ url_for('logout') }}" > <span class="glyphicon glyphicon-off"></span> 退出登录</a></li> 
+                {% endif %} 
+        </div>
+       </ul>
+</nav> 
+
+<div class="container-fiuld">
+	<form class="form" role="form" method="POST">
 <div class="col-center-block " >
 <h2 class="text-center">发电模块数据查询</h2>
 {{ form.hidden_tag() }}
-<div class="row"> 
+<div class="row" style=margin-left:20px;> 
 <div class="col-lg-2">   
 
 	<label  class="form.label">工单号</label>
@@ -22,63 +39,71 @@
 	<label  class="form.label">工具</label>
 	<input  class="form-control"  type="text" name="testTool"value=""placeholder="请输入使用工具进行查询">
 	<br>
-	<div class="col-center-block ">
-		<button type="form.submit" class="btn btn-primary " >查询</button>
+	<div class="col-center-block row" >
+		<div class="col-lg-6">
+			<button type="form.submit" class="btn btn-primary " >查询</button>
+		</div>
+		<div class="col-lg-6">
+			{% if modules %}
+			<button class="btn btn-primary" onClick ="$('#tab1').tableExport({type:'excel', separator:';', escape:'false'});" id="buttonExportData" class="ui-btn ui-btn-inline ui-mini ui-shadow ui-corner-all">导出 Excel</button>
+			{% endif %}
+		</div>
 	</div>
 </div>
 <div class="col-lg-10">
 {% if modules %}
-<button class="btn btn-primary" onClick ="$('#tab1').tableExport({type:'excel', separator:';', escape:'false'});" id="buttonExportData" class="ui-btn ui-btn-inline ui-mini ui-shadow ui-corner-all">导出 Excel</button>
 <table class="table table-bordered" id="tab1">
  <thead>
     <tr>
-      <th>type</th>
-      <th>number</th>
-      <th>maxPress</th>
-      <th>minPress</th>
-      <th>press</th>
-      <th>maxPressPosition</th>
-      <th>minPressPosition</th>
-      <th>pressPosition</th>
-      <th>minPressPower</th>
-      <th>pressPower</th>
-      <th>maxBack</th>
-      <th>minBcak</th>
-      <th>back</th>
-      <th>maxBackPosition</th>
-      <th>minBackPosition</th>
-      <th>backPosition</th>
-      <th>minBackPower</th>
-      <th>backPower</th>
-      <th>testTime</th>
-      <th>tester</th>
-      <th>testTool</th>
+      <th>序号</th>
+      <th>模块类型</th>
+      <th>工单号</th>
+      <th>最大下压力</th>
+      <th>最小下压力</th>
+      <th>实测下压力</th>
+      <th>最大下压点</th>
+      <th>最小下压点</th>
+      <th>实测下压点</th>
+      <th>下按最小发电量</th>
+      <th>实测下压发电量</th>
+      <th>最大回弹力</th>
+      <th>最小回弹力</th>
+      <th>实测回弹力</th>
+      <th>最大回弹点</th>
+      <th>最小回弹点</th>
+      <th>实测回弹点</th>
+      <th>回弹最小发电量</th>
+      <th>实测回弹发电量</th>
+      <th>测试时间</th>
+      <th>测试人员</th>
+      <th>测试治具</th>
     </tr>
   </thead>
   <tbody>
   	{% for module in modules %}
     <tr>
-	<td>{{module.type}}</td>
-	<td>{{module.number}}</td>
-	<td>{{module.maxPress}}</td>
-	<td>{{module.minPress}}</td>
-	<td>{{module.press}}</td>
-	<td>{{module.maxPressPosition}}</td>
-	<td>{{module.minPressPosition}}</td>
-	<td>{{module.pressPosition}}</td>
-	<td>{{module.minPressPower}}</td>
-	<td>{{module.pressPower}}</td>
-	<td>{{module.maxBack}}</td>
-	<td>{{module.minBcak}}</td>
-	<td>{{module.back}}</td>
-	<td>{{module.maxBackPosition}}</td>
-	<td>{{module.minBackPosition}}</td>
-	<td>{{module.backPosition}}</td>
-	<td>{{module.minBackPower}}</td>
-	<td>{{module.backPower}}</td>
-	<td>{{module.testTime}}</td>
-	<td>{{module.tester}}</td>
-	<td>{{module.testTool}}</td>
+      <td>{{modules.index(module)+1}}</td>
+    	<td>{{module.type}}</td>
+    	<td>{{module.number}}</td>
+    	<td>{{module.maxPress}}</td>
+    	<td>{{module.minPress}}</td>
+    	<td>{{module.press}}</td>
+    	<td>{{module.maxPressPosition}}</td>
+    	<td>{{module.minPressPosition}}</td>
+    	<td>{{module.pressPosition}}</td>
+    	<td>{{module.minPressPower}}</td>
+    	<td>{{module.pressPower}}</td>
+    	<td>{{module.maxBack}}</td>
+    	<td>{{module.minBcak}}</td>
+    	<td>{{module.back}}</td>
+    	<td>{{module.maxBackPosition}}</td>
+    	<td>{{module.minBackPosition}}</td>
+    	<td>{{module.backPosition}}</td>
+    	<td>{{module.minBackPower}}</td>
+    	<td>{{module.backPower}}</td>
+    	<td>{{module.testTime}}</td>
+    	<td>{{module.tester}}</td>
+    	<td>{{module.testTool}}</td>
     </tr>
     {% endfor %}
   </tbody>
@@ -89,5 +114,7 @@
 </div>
 </form>
 {% include 'flash.html' %}
+
+</div>
 {% endblock %}
 
