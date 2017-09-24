@@ -61,22 +61,40 @@ def admin():
 def query():
     form=QueryForm()
     if form.number.data:
+        Number = form.number.data
         if form.testTool.data:
             if form.starttime.data and form.stoptime.data:
-                modules1=Modules.query.filter_by(number=form.number.data,testTool = form.testTool.data).all()
+                modules3 = Modules.query.filter(Modules.number.like('%'+str(Number)+'%')).all()
+                modules1=Modules.query.filter_by(testTool = form.testTool.data).all()
                 modules2=Modules.query.filter(Modules.testTime>=form.starttime.data,Modules.testTime<form.stoptime.data).all()
+                all_modules = list(set(modules1).intersection(set(modules2)))
+                modules = list(set(modules3).intersection(set(all_modules)))
+                return render_template('query.html',form=form,modules=modules)
+                #modules1=Modules.query.filter_by(number = Number,testTool = form.testTool.data).all()
+                #modules2=Modules.query.filter(Modules.testTime>=form.starttime.data,Modules.testTime<form.stoptime.data).all()
+                #modules=list(set(modules1).intersection(set(modules2)))
+                #return render_template('query.html',form=form,modules=modules)
+            else:
+                #modules=Modules.query.filter_by(number=form.number.data,testTool = form.testTool.data).all()
+                #return render_template('query.html',form=form,modules=modules)
+                modules1=Modules.query.filter(Modules.number.like('%'+str(Number)+'%')).all()
+                modules2=Modules.query.filter_by(testTool = form.testTool.data).all()
                 modules=list(set(modules1).intersection(set(modules2)))
                 return render_template('query.html',form=form,modules=modules)
-            else:
-                modules=Modules.query.filter_by(number=form.number.data,testTool = form.testTool.data).all()
-                return render_template('query.html',form=form,modules=modules)
+
+
         else:
             if form.starttime.data and form.stoptime.data:
-                modules1=Modules.query.filter_by(number=form.number.data).all()
+                modules1=Modules.query.filter(Modules.number.like('%'+str(Number)+'%')).all()
                 modules2=Modules.query.filter(Modules.testTime>=form.starttime.data,Modules.testTime<form.stoptime.data).all()
                 modules=list(set(modules1).intersection(set(modules2)))
+                return render_template('query.html',form=form,modules=modules)
             else:
-                modules=Modules.query.filter_by(number=form.number.data).all()
+                #print number
+                #共单号查询
+                #modules=Modules.query.filter_by(number=form.number.data).all()
+                #return render_template('query.html',form=form,modules=modules)
+                modules=Modules.query.filter(Modules.number.like('%'+str(Number)+'%')).all()
                 return render_template('query.html',form=form,modules=modules)
 
 
