@@ -12,7 +12,8 @@ if hostname == 'chalinandeMac-mini.local': #开发环境
 if hostname == 'iZ2ze7ry8wsws4xlrloit3Z':  #生产环境
 	SQLALCHEMY_DATABASE_URI = 'mysql://root:1234pttK@127.0.0.1:3306/test?charset=utf8'
 
-
+if hostname == 'HANZHENG':   #Linksame
+	SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
 
 
 SQLALCHEMY_TRACK_MODIFICATIONS = True

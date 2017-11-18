@@ -57,24 +57,31 @@
       <th>序号</th>
       <th>模块类型</th>
       <th>工单号</th>
-      <th>最大下压力</th>
-      <th>最小下压力</th>
-      <th>实测下压力</th>
-      <th>最大下压点</th>
-      <th>最小下压点</th>
-      <th>实测下压点</th>
-      <th>下按最小发电量</th>
-      <th>实测下压发电量</th>
-      <th>最大回弹力</th>
-      <th>最小回弹力</th>
-      <th>实测回弹力</th>
-      <th>最大回弹点</th>
-      <th>最小回弹点</th>
-      <th>实测回弹点</th>
+      <th>最大下压力度</th>
+      <th>最小下压力度</th>
+      <th>实测下压力度</th>
+      <th>最大下压初始位置</th>
+      <th>最小下压初始位置</th>
+      <th>实测下压初始位置</th>
+      <th>下压最小发电量</th>
+      <th>下压最大发电量</th>
+      <th>测试下压发电量</th>
+      <th>下压最大行程</th>
+      <th>下压最小行程</th>
+      <th>测试下压行程</th>
+      <th>回弹最大力度</th>
+      <th>回弹最小力度</th>
+      <th>测试回弹力度</th>
+      <th>回弹最大初始位置</th>
+      <th>回弹最小初始位置</th>
+      <th>测试回弹初始位置</th>
       <th>回弹最小发电量</th>
-      <th>实测回弹发电量</th>
+      <th>回弹最大发电量</th>
+      <th>测试回弹发电量</th>
+      <th>回弹最大行程</th>
+      <th>回弹最小行程</th>
+      <th>测试回弹行程</th>
       <th>测试时间</th>
-      <th>测试人员</th>
       <th>测试治具</th>
     </tr>
   </thead>
@@ -91,7 +98,11 @@
     	<td>{{module.minPressPosition}}</td>
     	<td>{{module.pressPosition}}</td>
     	<td>{{module.minPressPower}}</td>
+      <td>{{module.maxPressPower}}</td>
     	<td>{{module.pressPower}}</td>
+      <td>{{module.maxPressStroke}}</td>
+      <td>{{module.minPressStroke}}</td>
+      <td>{{module.pressStroke}}</td>
     	<td>{{module.maxBack}}</td>
     	<td>{{module.minBcak}}</td>
     	<td>{{module.back}}</td>
@@ -99,9 +110,12 @@
     	<td>{{module.minBackPosition}}</td>
     	<td>{{module.backPosition}}</td>
     	<td>{{module.minBackPower}}</td>
+      <td>{{module.maxBackPower}}</td>
     	<td>{{module.backPower}}</td>
+      <td>{{module.maxBackStroke}}</td>
+      <td>{{module.minBackStroke}}</td>
+      <td>{{module.backStroke}}</td>
     	<td>{{module.testTime}}</td>
-    	<td>{{module.tester}}</td>
     	<td>{{module.testTool}}</td>
     </tr>
     {% endfor %}

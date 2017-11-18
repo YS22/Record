@@ -136,77 +136,103 @@ def apilogin():
 
 @app.route('/v1.0/upload', methods=['POST'])
 def upload():
-    type=request.json['type']
-    number=request.json['number']
-    maxPress=request.json['maxPress']
-    minPress=request.json['minPress']
-    press=request.json['press']
-    maxPressPosition=request.json['maxPressPosition']
-    minPressPosition=request.json['minPressPosition']
-    pressPosition=request.json['pressPosition']
-    minPressPower=request.json['minPressPower']
-    pressPower=request.json['pressPower']
-    maxBack=request.json['maxBack']
-    minBcak=request.json['minBcak']
-    back=request.json['back']
-    maxBackPosition=request.json['maxBackPosition']
-    minBackPosition=request.json['minBackPosition']
-    backPosition=request.json['backPosition']
-    minBackPower=request.json['minBackPower']
-    backPower=request.json['backPower']
-    # testTime=datetime.datetime.now()
-    testTime=request.json['testTime']
-    tester=request.json['tester']
-    testTool=request.json['testTool']
+
+    '''接收数据，根据类型和工单号查看有无存在相同的工单号和类型,有则覆盖，无就加入数据库'''
+    type = request.json['type']
+    number =request.json['number']
+    maxPress =request.json['maxPress']
+    minPress = request.json['minPress']
+    press = request.json['press']
+    maxPressPosition = request.json['maxPressPosition']
+    minPressPosition = request.json['minPressPosition']
+    pressPosition = request.json['pressPosition']
+    minPressPower = request.json['minPressPower']
+    maxPressPower = request.json['maxPressPower']
+    pressPower = request.json['pressPower']
+    maxPressStroke = request.json['maxPressStroke']
+    minPressStroke = request.json['minPressStroke']
+    pressStroke = request.json['pressStroke']
+    maxBack = request.json['maxBack']
+    minBcak = request.json['minBcak']
+    back = request.json['back']
+    maxBackPosition = request.json['maxBackPosition']
+    minBackPosition = request.json['minBackPosition']
+    backPosition = request.json['backPosition']
+    minBackPower = request.json['minBackPower']
+    maxBackPower = request.json['maxBackPower']
+    backPower = request.json['backPower']
+    maxBackStroke = request.json['maxBackStroke']
+    minBackStroke = request.json['minBackStroke']
+    backStroke = request.json['backStroke']
+    testTime = request.json['testTime']
+    testTool = request.json['testTool']
 
     modules=Modules.query.filter_by(type=type,number=number).first()
     if modules:
-        #modules.maxPress=maxPress
-        #modules.minPress=minPress
-        modules.press=press
-        #modules.maxPressPosition=maxPressPosition
-        #modules.minPressPosition=minPressPosition
-        modules.pressPosition=pressPosition
-        #modules.minPressPower=minPressPower
-        modules.pressPower=pressPower
-        #modules.maxBack=maxBack
-        #modules.minBca=minBca
-        modules.back=back
-        #modules.maxBackPosition=maxBackPosition
-        #modules.minBackPosition=minBackPosition
-        modules.backPosition=backPosition
-        #modules.minBackPower=minBackPower
-        modules.backPower=backPower
-        modules.testTime=testTime
-        modules.tester=tester
-        modules.testTool=testTool
+
+        modules.type = type
+        modules.number = number 
+        modules.maxPress = maxPress
+        modules.minPress = minPress 
+        modules.press = press
+        modules.maxPressPosition = maxPressPosition 
+        modules.minPressPosition = minPressPosition 
+        modules.pressPosition = pressPosition 
+        modules.minPressPower = minPressPower 
+        modules.maxPressPower = maxPressPower
+        modules.pressPower = pressPower 
+        modules.maxPressStroke = maxPressStroke
+        modules.minPressStroke = minPressStroke
+        modules.pressStroke = pressStroke
+        modules.maxBack = maxBack 
+        modules.minBcak = minBcak 
+        modules.back = back
+        modules.maxBackPosition = maxBackPosition 
+        modules.minBackPosition = minBackPosition 
+        modules.backPosition = backPosition 
+        modules.minBackPower = minBackPower 
+        modules.maxBackPower = maxBackPower
+        modules.backPower = backPower 
+        modules.maxBackStroke = maxBackStroke
+        modules.minBackStroke = minBackStroke
+        modules.backStroke = backStroke
+        modules.testTime = testTime 
+        modules.testTool = testTool
+
         db.session.add(modules)
         db.session.commit()
         return json.dumps("updata OK")
     
     else:
         modules=Modules(
-        type=type,
-        number=number,
-        maxPress=maxPress,
-        minPress=minPress,
-        press=press,
-        maxPressPosition=maxPressPosition,
-        minPressPosition=minPressPosition,
-        pressPosition=pressPosition,
-        minPressPower=minPressPower,
-        pressPower=pressPower,
-        maxBack=maxBack,
-        minBcak=minBcak,
-        back=back,
-        maxBackPosition=maxBackPosition,
-        minBackPosition=minBackPosition,
-        backPosition=backPosition,
-        minBackPower=minBackPower,
-        backPower=backPower,
-        testTime=testTime,
-        tester=tester,
-        testTool=testTool
+        type = type,
+        number = number ,
+        maxPress = maxPress,
+        minPress = minPress ,
+        press = press,
+        maxPressPosition = maxPressPosition,
+        minPressPosition = minPressPosition ,
+        pressPosition = pressPosition, 
+        minPressPower = minPressPower ,
+        maxPressPower = maxPressPower,
+        pressPower = pressPower,
+        maxPressStroke = maxPressStroke,
+        minPressStroke = minPressStroke,
+        pressStroke = pressStroke,
+        maxBack = maxBack ,
+        minBcak = minBcak ,
+        back = back,
+        maxBackPosition = maxBackPosition ,
+        minBackPosition = minBackPosition ,
+        backPosition = backPosition ,
+        minBackPower = minBackPower ,
+        maxBackPower = maxBackPower,
+        backPower = backPower ,
+        maxBackStroke = maxBackStroke,
+        minBackStroke = minBackStroke,
+        backStroke = backStroke,
+        testTime = testTime ,
+        testTool = testTool
         )
         db.session.add(modules)
         db.session.commit()
@@ -214,6 +240,8 @@ def upload():
 
 @app.route('/v1.0/number', methods=['POST'])
 def number():
+
+    ''' 根据工单号查询数据'''
     number=request.json['number']
     modules=Modules.query.filter_by(number=number).all()[0:1]
     modulesInfo=[]
@@ -221,26 +249,33 @@ def number():
         Info={
         'id':module.id,
         'type':module.type,
-        'number':module.number,
+        'number':module.number ,
         'maxPress':module.maxPress,
-        'minPress':module.minPress,
+        'minPress':module.minPress ,
         'press':module.press,
         'maxPressPosition':module.maxPressPosition,
-        'minPressPosition':module.minPressPosition,
-        'pressPosition':module.pressPosition,
-        'minPressPower':module.minPressPower,
+        'minPressPosition':module.minPressPosition ,
+        'pressPosition':module.pressPosition, 
+        'minPressPower':module.minPressPower ,
+        'maxPressPower':module.maxPressPower,
         'pressPower':module.pressPower,
-        'maxBack':module.maxBack,
-        'minBcak':module.minBcak,
-        'back':module.back,
-        'maxBackPosition':module.maxBackPosition,
-        'minBackPosition':module.minBackPosition,
-        'backPosition':module.backPosition,
-        'minBackPower':module.minBackPower,
-        'backPower':module.backPower,
+        'maxPressStroke':module.maxPressStroke,
+        'minPressStroke':module.minPressStroke,
+        'pressStroke': module.pressStroke,
+        'maxBack' : module.maxBack ,
+        'minBcak': module.minBcak ,
+        'back': module.back,
+        'maxBackPosition': module.maxBackPosition ,
+        'minBackPosition' : module.minBackPosition ,
+        'backPosition': module.backPosition ,
+        'minBackPower' : module.minBackPower ,
+        'maxBackPower' : module.maxBackPower,
+        'backPower' : module.backPower ,
+        'maxBackStroke' : module.maxBackStroke,
+        'minBackStroke': module.minBackStroke,
+        'backStroke' : module.backStroke,
         'testTime':str(module.testTime),
-        'tester':module.tester,
-        'testTool':module.testTool
+        'testTool' : module.testTool
         }
         modulesInfo.append(Info)
     return json.dumps(modulesInfo)
@@ -253,14 +288,16 @@ def numbertype():
     module=Modules.query.filter_by(number=number,type=type).first()
     if module:
         modulesInfo={
-        'press':module.press,
-        'pressPosition':module.pressPosition,
-        'pressPower':module.pressPower,
-        'back':module.back,
-        'backPosition':module.backPosition,
-        'backPower':module.backPower,
-        'testTime':str(module.testTime),
-        'testTool':module.testTool
+            'press':module.press,
+            'pressPosition':module.pressPosition, 
+            'pressPower':module.pressPower,
+            'pressStroke': module.pressStroke,
+            'back': module.back,
+            'backPosition': module.backPosition ,
+            'backPower' : module.backPower ,
+            'backStroke' : module.backStroke,
+            'testTime':str(module.testTime),
+            'testTool' : module.testTool
         }
         return json.dumps(modulesInfo)
     else:
